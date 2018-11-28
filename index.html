@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My site</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<header>
+  <div id="logo" onclick="slowScroll('#top')">
+    <span>Kostia.com</span>
+  </div>
+  <div id="about">
+    <a href="#" id=Vosm title="Возможности" onclick="slowScroll('#main')">Возосжности</a>
+    <a href="#" id=Prim title="Преимущества" onclick="slowScroll('#overview')">Преимущества</a>
+    <a href="#" id=Cont title="Контакти" onclick="slowScroll('#contacts')">Контакти</a>
+    <a href="#" id=Fa title="Ответи на вопросы" onclick="slowScroll('#faq')">FAQ</a>
+  </div>
+</header>
+
+<div id="top">
+  <h1>Программирование</h1>
+  <h3>как способ жизни!</h3>
+  <div class="box">
+     <span></span>
+     <span></span>
+     <span></span>
+  </div>
+</div>
+
+<div id="main">
+  <div class="intro">
+    <h2>Наши услуги помогут вам!</h2>
+    <h4>Большой вибор всего что может вам понадобиться</h4>
+  </div>
+  <div class="text">
+    <span>Lorem ipsum dolor sit amet. Placeat, facere possimus, omnis voluptas sit, aspernatur aut perferendis doloribus
+      asperiores repellat.. Corrupti, quos dolores et dolore magnam aliquam quaerat voluptatem sequi nesciunt. Assumenda
+      est, omnis dolor repellendus consequatur. Cum soluta nobis est laborum et quasi architecto beatae vitae dicta.
+      Similique sunt in culpa. Esse, quam nihil molestiae non provident, similique sunt in. Sunt, explicabo assumenda
+      est, omnis dolor repellendus sunt in ea voluptate.</span>
+  </div>
+</div>
+
+<div id="overview">
+  <h2>Преимущества</h2>
+  <h4>с нами все проще</h4>
+
+  <div class="img">
+    <img src="d73845fede813bb2af2b2689d462e90f.jpg" alt="">
+    <span>Изучение языка Ruby для начинающих</span>
+  </div>
+  <div class="img">
+    <img src="adobe-photoshop-logo.png" alt="">
+    <span>Уроки PhotoShop для начинающих</span>
+  </div>
+  <div class="img">
+    <img src="Swift-Logo.jpg" alt="">
+    <span>Уроки Swift для начинающих</span>
+  </div>
+  <div class="img">
+    <img src="python1-1.jpg" alt="">
+    <span>Уроки Python 3 для начинающих</span>
+  </div>
+</div>
+<div class="box-2">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+
+<div id="contacts">
+  <div class="container-contact2">
+    <div class="wrap-contact2">
+      <form class="contact2-form validate-form">
+        <span class="contact2-form-title">
+						Contact Us
+					</span>
+
+          <div class="wrap-input2 validate-input" data-validate="Name is required">
+            <input class="input2" type="text" name="name">
+            <span class="focus-input2" data-placeholder="Name"></span>
+          </div>
+
+          <div class="wrap-input2 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+            <input class="input2" type="text" name="email">
+            <span class="focus-input2" data-placeholder="E-mail"></span>
+          </div>
+
+          <div class="wrap-input2 validate-input" data-validate = "Message is required">
+            <textarea class="input2" name="message"></textarea>
+            <span class="focus-input2" data-placeholder="Message"></span>
+          </div>
+
+          <div class="container-contact2-form-btn">
+            <div class="wrap-contact2-form-btn">
+              <div class="contact2-form-bgbtn"></div>
+              <button class="contact2-form-btn">
+                Send Your Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  function slowScroll(id) {
+    $('html, body').animate({
+      scrollTop: $(id).offset().top
+    }, 1000);
+  }
+
+  $(document).on("scroll", function () {
+    if($(window).scrollTop() === 0)
+      $("header").removeClass("fixed");
+    else
+      $("header").attr("class", "fixed");
+  });
+
+
+  (function ($) {
+    "use strict";
+
+
+    /*Contact us*/
+    $('.input2').each(function(){
+      $(this).on('blur', function(){
+        if($(this).val().trim() != "") {
+          $(this).addClass('has-val');
+        }
+        else {
+          $(this).removeClass('has-val');
+        }
+      })
+    })
+
+    /*Contact us*/
+    var name = $('.validate-input input[name="name"]');
+    var email = $('.validate-input input[name="email"]');
+    var message = $('.validate-input textarea[name="message"]');
+
+
+    $('.validate-form').on('submit',function(){
+      var check = true;
+
+      if($(name).val().trim() == ''){
+        showValidate(name);
+        check=false;
+      }
+
+      if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+        showValidate(email);
+        check=false;
+      }
+
+      if($(message).val().trim() == ''){
+        showValidate(message);
+        check=false;
+      }
+
+      return check;
+    });
+
+    $('.validate-form .input2').each(function(){
+      $(this).focus(function(){
+        hideValidate(this);
+      });
+    });
+
+    function showValidate(input) {
+      var thisAlert = $(input).parent();
+
+      $(thisAlert).addClass('alert-validate');
+    }
+
+    function hideValidate(input) {
+      var thisAlert = $(input).parent();
+
+      $(thisAlert).removeClass('alert-validate');
+    }
+  })(jQuery);
+</script>
+
+</body>
+</html>
+
